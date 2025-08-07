@@ -1,12 +1,9 @@
 pipeline {
-    agent any
-
-    environment {
-        IMAGE_NAME = 'catalogo-pymes'
-        CONTAINER_NAME = 'catalogo-pymes'
-        PORT = '3000'
+    agent {
+        docker {
+            image 'node:18'
+        }
     }
-
     stages {
         stage('Instalar dependencias') {
             steps {
@@ -14,21 +11,16 @@ pipeline {
                 sh 'npm install'
             }
         }
-
         stage('Construir imagen Docker') {
             steps {
                 echo 'Construyendo imagen Docker...'
-                sh "docker build -t ${IMAGE_NAME} ."
+                sh 'docker build -t catalogo-pymes .'
             }
         }
-
         stage('Desplegar contenedor') {
             steps {
                 echo 'Desplegando contenedor...'
-                sh """
-                    docker rm -f ${CONTAINER_NAME} || true
-                    docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} ${IMAGE_NAME}
-                """
+                sh 'docker run -d -p 3000:3000 catalogo-pymes'
             }
         }
     }
