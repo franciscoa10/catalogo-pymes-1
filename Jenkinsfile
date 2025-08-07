@@ -1,26 +1,20 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18'
-        }
+    agent any
+
+    environment {
+        NODE_ENV = 'development'
     }
+
     stages {
         stage('Instalar dependencias') {
             steps {
-                echo 'Instalando dependencias...'
                 sh 'npm install'
             }
         }
-        stage('Construir imagen Docker') {
+
+        stage('Ejecutar aplicación') {
             steps {
-                echo 'Construyendo imagen Docker...'
-                sh 'docker build -t catalogo-pymes .'
-            }
-        }
-        stage('Desplegar contenedor') {
-            steps {
-                echo 'Desplegando contenedor...'
-                sh 'docker run -d -p 3000:3000 catalogo-pymes'
+                sh 'node server.js'
             }
         }
     }
