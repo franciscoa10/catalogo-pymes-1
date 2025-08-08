@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'Node18'   // nombre que configuraste en Jenkins
-        dockerTool  'Dockertool'     // nombre que configuraste en Jenkins
+        nodejs 'Node18'
+        dockerTool 'Dockertool'
     }
 
     environment {
@@ -17,6 +17,13 @@ pipeline {
             steps {
                 echo 'Instalando dependencias...'
                 sh 'npm install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Ejecutando pruebas...'
+                sh 'npm test'
             }
         }
 
