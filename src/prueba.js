@@ -1,4 +1,10 @@
-function sum(a, b) {
-  return a + b;
+// src/cart.js
+function calculateTotal(cart) {
+  return cart.reduce((sum, item) => sum + item.price, 0);
 }
-module.exports = sum;
+
+function formatCartItems(cart) {
+  return cart.map(item => `${item.name} - $${item.price.toFixed(2)}`);
+}
+
+module.exports = { calculateTotal, formatCartItems };
