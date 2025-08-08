@@ -3,7 +3,6 @@ pipeline {
 
     tools {
         nodejs 'Node18'   // nombre que configuraste en Jenkins
-        docker 'Dockertool'     // nombre que configuraste en Jenkins
     }
 
     environment {
