@@ -23,7 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Ejecutando pruebas...'
-                sh 'npx jest'
+                sh 'node node_modules/jest/bin/jest.js'
             }
         }
 
